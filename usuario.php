@@ -20,6 +20,8 @@ class Usuario extends CActiveRecord
             array('codigousuario, usuario', 'required'),
             array('edad', 'integer'),
             array('edad', 'esAdulto')
+            array('favoritos','exist','allowEmpty' => true, 'className' => 'Usuario'),
+            array('pagos','exist','allowEmpty' => true, 'className' => 'Pago')
         );
     }
 
@@ -33,10 +35,8 @@ class Usuario extends CActiveRecord
         return array(
         	// Para favoritos puede ser necesario desambiguar en cual de las dos columnas buscar el id para la consulta
             'favoritos'=>array(self::MANY_MANY, 'Usuario','FAVORITOS(codigousuario, codigousuariofavorito)'),
-            'pagos'=>array(self::MANY_MANY, 'Pago','USUARIOSPAGOS(codigopago, codigousuario)')
+            'pagos'=>array(self::HAS_MANY, 'Pago','USUARIOSPAGOS(codigopago, codigousuario)')
         );
     }
-
-    TODO VALIDACION FOREIGN KEY DE FAVORITOS Y PAGOS
 
 }
